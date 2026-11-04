@@ -10,54 +10,7 @@
   <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 {% endblock %}
 {% block main %}
-    <section class="lp-hero" aria-labelledby="h-hero">
-      <span class="lp-hero__orb lp-hero__orb--a" aria-hidden="true"></span>
-      <span class="lp-hero__orb lp-hero__orb--b" aria-hidden="true"></span>
-      <p class="lp-eyebrow"><span class="lp-eyebrow__dot" aria-hidden="true"></span>Backtested on a year of real NIFTY option data</p>
-      <h2 id="h-hero" class="lp-hero__title">One strategy.<br><span class="lp-grad">Every account.</span></h2>
-      <p class="lp-hero__text">
-        A 9/21 EMA crossover engine that shows every trade it would have taken, with slippage and the full
-        charge stack counted. Then the part that matters: running it across as many broker accounts as
-        you want, on one machine or a hundred.
-      </p>
-      <p class="lp-hero__actions">
-        <a class="btn btn--primary lp-btn" href="{{ contact_url }}" target="_blank" rel="noopener noreferrer">Message me on Upwork</a>
-        <a class="btn lp-btn" href="/backtest">See the backtest</a>
-      </p>
-    </section>
-
-    <section class="lp-asks" aria-labelledby="h-asks">
-      <h2 id="h-asks" class="lp-section">Two questions</h2>
-      <div class="lp-asks__grid">
-        <article class="lp-ask">
-          <p class="lp-ask__num"><span class="lp-grad">10</span><small>accounts &middot; 1 machine</small></p>
-          <h3 class="lp-ask__q">Want to maximise your current profits just by copying into 10 accounts on a single machine?</h3>
-          <div class="lp-fleet lp-fleet--one" aria-hidden="true">
-            {% for _ in range(10) %}<i></i>{% endfor %}
-          </div>
-          <p class="lp-ask__text">The same strategy, mirrored across ten broker accounts from one computer. Same rules, ten times the capital at work.</p>
-          <a class="lp-ask__cta" href="{{ contact_url }}" target="_blank" rel="noopener noreferrer">Yes, let&rsquo;s set it up &rarr;</a>
-        </article>
-
-        <article class="lp-ask">
-          <p class="lp-ask__num"><span class="lp-grad">100</span><small>machines &middot; VPS</small></p>
-          <h3 class="lp-ask__q">Or by running 100 machines on VPS servers?</h3>
-          <div class="lp-fleet lp-fleet--many" aria-hidden="true">
-            {% for _ in range(100) %}<i></i>{% endfor %}
-          </div>
-          <p class="lp-ask__text">Spread the accounts across rented servers so each one runs on its own, and a problem on one machine never stops the rest.</p>
-          <a class="lp-ask__cta" href="{{ contact_url }}" target="_blank" rel="noopener noreferrer">Yes, let&rsquo;s scale it &rarr;</a>
-        </article>
-      </div>
-    </section>
-
-    <section class="lp-cta" aria-labelledby="h-cta">
-      <div>
-        <h2 id="h-cta" class="lp-cta__title">Ready to scale it up?</h2>
-        <p class="lp-cta__text">Tell me how many accounts you run and where, and we will scope it together.</p>
-      </div>
-      <a class="btn btn--primary lp-btn" href="{{ contact_url }}" target="_blank" rel="noopener noreferrer">Reach out on Upwork</a>
-    </section>
+    {% include "_landing.html" %}
 
     <div id="accounts-banner" class="banner banner--error" role="alert" hidden></div>
 

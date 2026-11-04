@@ -32,7 +32,7 @@
         The backtest runs on NIFTY 1-minute candles and the option candles it needs. Nothing has been
         downloaded yet.
       </p>
-      <a class="btn btn--primary" href="/data">Go to the Data page</a>
+      {% if not static_site %}<a class="btn btn--primary" href="/data">Go to the Data page</a>{% endif %}
     </section>
 
     <div id="app" hidden>

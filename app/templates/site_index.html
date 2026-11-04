@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+{% set active = "account" %}
+{% block title %}Strategy Desk &middot; One strategy, every account{% endblock %}
+{% block subtitle %}Automated NIFTY options strategies, at scale{% endblock %}
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+{% endblock %}
+{% block main %}
+    {% include "_landing.html" %}
+
+    <section class="lp-facts" aria-labelledby="h-facts">
+      <h2 id="h-facts" class="lp-section">What the backtest covers</h2>
+      <dl class="lp-facts__grid">
+        <div class="lp-fact"><dt>Simulated trades</dt><dd>{{ facts.trades }}</dd></div>
+        <div class="lp-fact"><dt>Period</dt><dd>{{ facts.first }} to {{ facts.last }}</dd></div>
+        <div class="lp-fact"><dt>Signal timeframes</dt><dd>5, 15 and 30 minutes</dd></div>
+        <div class="lp-fact"><dt>Costs counted</dt><dd>Slippage, brokerage, STT, exchange fees, GST and stamp duty</dd></div>
+      </dl>
+      <p class="lp-facts__link"><a class="btn lp-btn" href="/backtest">Explore every trade on a chart</a></p>
+    </section>
+{% endblock %}
