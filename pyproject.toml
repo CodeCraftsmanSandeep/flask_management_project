@@ -1,0 +1,52 @@
+# Tool configuration only: this is an application, not an installable package.
+# Dependencies live in requirements.txt / requirements-dev.txt.
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+src = ["."]
+
+[tool.ruff.lint]
+select = [
+  "E", "W",  # pycodestyle
+  "F",       # pyflakes
+  "I",       # isort
+  "N",       # pep8-naming
+  "UP",      # pyupgrade
+  "B",       # bugbear
+  "S",       # bandit (security checks matter for a trading app)
+  "C4",      # comprehensions
+  "SIM",     # simplifications
+  "RET",     # return consistency
+  "PT",      # pytest style
+  "T20",     # no stray print()
+  "RUF",     # ruff-specific
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106", "S311"]  # asserts, fake secrets, seeded random are fine in tests
+"scripts/**" = ["T201"]                # scripts are allowed to print
+"app/db/migrate.py" = ["T201"]         # command-line entry point
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+files = ["app", "tests", "scripts", "wsgi.py"]
+
+[[tool.mypy.overrides]]
+# growwapi ships no type information (no py.typed).
+module = ["growwapi", "growwapi.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# pyarrow (used only by scripts/hf_dataset.py) ships no type information.
+module = ["pyarrow", "pyarrow.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers --strict-config"

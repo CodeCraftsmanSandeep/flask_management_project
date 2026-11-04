@@ -1,0 +1,10 @@
+-r requirements.txt
+
+# Lint + format
+ruff==0.17.3
+# Static type checking
+mypy==2.4.1
+# Tests
+pytest==9.2.0
+# Reads Parquet files (scripts/hf_dataset.py only; the app itself does not need it)
+pyarrow==26.0.1

@@ -1,0 +1,43 @@
+# ---------------------------------------------------------------------------
+# SECRETS - never commit these. keys.txt holds the Groww TOTP token + secret.
+# If one of them ever lands in a commit, treat it as leaked and regenerate it
+# on https://groww.in/trade-api/api-keys.
+# ---------------------------------------------------------------------------
+keys.txt
+keys*.txt
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+token*.json
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+instance/
+
+# Local PostgreSQL cluster (downloaded market data + cached backtests)
+pgdata/
+
+# Downloaded datasets (make hf-data)
+data/
+
+# Tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Editors / OS / logs
+.DS_Store
+.idea/
+*.log
