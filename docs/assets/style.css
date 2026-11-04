@@ -270,6 +270,46 @@ body {
 
 .btn--hire:hover { filter: brightness(1.1); }
 
+/* ---------- pitch bar (website only): stays in view on the backtest page ---------- */
+
+.pitch {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 18px;
+  padding: 12px 20px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-top: 2px solid transparent;
+  border-image: var(--grad) 1;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.25);
+  animation: pitch-in 0.6s ease 1.2s both;
+}
+
+.pitch__text { margin: 0; display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; }
+.pitch__text strong { font-size: 15px; }
+.pitch__text span { color: var(--muted); font-size: 14px; }
+.pitch__more { color: var(--accent); font-weight: 600; font-size: 14px; white-space: nowrap; }
+
+@keyframes pitch-in {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* On a phone the bar keeps only the short pitch and the buttons, so it does not hide the page. */
+@media (max-width: 600px) {
+  .pitch { padding: 8px 14px; gap: 6px 12px; }
+  .pitch__text span { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pitch { animation: none; }
+}
+
 /* ---------- key/value lists ---------- */
 
 .kv { margin: 0; }
