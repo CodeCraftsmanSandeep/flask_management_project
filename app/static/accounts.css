@@ -1,0 +1,87 @@
+/* Accounts: the circles, the detail panel and the add dialog. */
+
+.circles { display: flex; flex-wrap: wrap; gap: 22px 18px; padding: 4px 0 8px; }
+
+.acct {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  width: 104px;
+  padding: 6px 4px 8px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.acct:hover .acct__disc { filter: brightness(1.12); }
+.acct:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.acct__disc {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent-ink);
+  background: var(--grad);
+  border: 3px solid transparent;
+  transition: border-color 0.15s, filter 0.15s;
+}
+
+.acct__disc--zerodha { background: #4f8df5; color: #06142f; }
+.acct__disc--groww { background: #00c28f; color: #032b21; }
+.acct__disc--other { background: #c9a227; color: #2b2100; }
+.acct__disc--add {
+  background: transparent;
+  color: var(--muted);
+  border: 2px dashed var(--muted);
+  font-weight: 400;
+  font-size: 32px;
+}
+
+.acct[aria-pressed="true"] .acct__disc { border-color: var(--text); }
+.acct__name { font-weight: 600; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.acct__broker { color: var(--muted); font-size: 12.5px; }
+
+.acct__dot {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 3px solid var(--surface);
+  background: var(--muted);
+}
+
+.acct__dot--ok { background: var(--pos); }
+
+.detail {
+  margin-top: 8px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+
+.detail__title { margin: 0; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 18px; }
+.detail__sub { margin: 4px 0 10px; color: var(--muted); font-size: 13px; }
+
+.overview-block { display: grid; gap: 16px; }
+.overview-block__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.overview-block__title { margin: 0; font-size: 18px; }
+.overview-block__controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+.form { display: grid; gap: 14px; padding-top: 16px; }
+.form__fields { display: grid; gap: 14px; }
+.field__help { color: var(--muted); font-size: 12.5px; }
+.dialog form { margin: 0; }
+.dialog .seg { flex-wrap: wrap; }
+
+.btn--danger { border-color: var(--neg); color: var(--neg); }
