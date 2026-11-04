@@ -26,8 +26,8 @@ instance/
 # Local PostgreSQL cluster (downloaded market data + cached backtests)
 pgdata/
 
-# Downloaded datasets (make hf-data)
-data/
+# Downloaded datasets (make hf-data); the website in docs/ has its own data/ folder, which is kept
+/data/
 
 # Tool caches
 .pytest_cache/

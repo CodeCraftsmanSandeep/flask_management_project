@@ -178,8 +178,12 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     config = replace(Config.from_env(), keys_file=Path("/dev/null"))  # the site never needs a key
     out = args.out.resolve()
-    if out == PROJECT_ROOT or PROJECT_ROOT in out.parents:
-        print("Refusing to write the website inside the project itself.", file=sys.stderr)
+    inside_project = out == PROJECT_ROOT or PROJECT_ROOT in out.parents
+    if inside_project and out != PROJECT_ROOT / "docs":
+        print(
+            "Refusing to write the website inside the project (only docs/ is allowed).",
+            file=sys.stderr,
+        )
         return 2
 
     print(f"building the website in {out}")

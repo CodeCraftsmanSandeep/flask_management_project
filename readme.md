@@ -323,6 +323,10 @@ make site                                  # or: make site ARGS="--out /some/fol
 cd ../AutomatedTradingSite && python3 -m http.server 8000     # try it at http://localhost:8000
 ```
 
+To serve it from this repository instead, build into `docs/` (`make site ARGS="--out docs"`), commit
+it, and set **Settings → Pages → Branch `main`, folder `/docs`**. Without that folder, Pages shows
+this readme instead of the website.
+
 * The backtest filters run in the browser (`static/js/static-api.js`), on JSON files holding the
   stored results and one chart file per trade (about 19 MB compressed, a few KB per page view).
 * **It is the same maths as the live app**: `tests/test_static_api.py` runs the same trades through
