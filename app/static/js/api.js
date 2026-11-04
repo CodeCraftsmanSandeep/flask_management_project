@@ -39,8 +39,15 @@ async function request(url, options) {
   return body;
 }
 
+/*
+ * The static website has no server: <html data-static="site"> makes the backtest requests answer
+ * from JSON files in the page itself (static-api.js). The live app never sets it.
+ */
+const STATIC_SITE = typeof document !== "undefined" && document.documentElement.dataset.static === "site";
+
 /** GET JSON. The browser revalidates with the server's ETag, so repeat views are cheap. */
 export function getJson(url, { signal } = {}) {
+  if (STATIC_SITE) return import("./static-api.js").then((module) => module.staticGet(url, { signal }));
   return request(url, { signal, headers: { Accept: "application/json" } });
 }
 
