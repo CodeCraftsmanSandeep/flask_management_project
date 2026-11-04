@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>{% block title %}Strategy Desk{% endblock %}</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2300d09c'/%3E%3Cpath d='M8 21l5-6 4 3 7-9' fill='none' stroke='%23032b21' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  {% block head %}{% endblock %}
+  <script src="{{ url_for('static', filename='theme.js') }}"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__inner {% block topbar_class %}{% endblock %}">
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <div>
+          <h1 class="brand__title">Strategy Desk</h1>
+          <p class="brand__sub">{% block subtitle %}{% endblock %}</p>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Pages">
+        {% for href, label, key in [("/", "Home", "account"), ("/backtest", "Backtest", "backtest"), ("/data", "Data", "data")] %}
+        <a href="{{ href }}"{% if key == active %} aria-current="page"{% endif %}>{{ label }}</a>
+        {% endfor %}
+      </nav>
+      <div class="controls">
+        {% block controls %}{% endblock %}
+        <button id="theme-toggle" class="btn btn--ghost" type="button">Light theme</button>
+        <a class="btn btn--hire" href="{{ contact_url }}" target="_blank" rel="noopener noreferrer">Work with me</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page {% block page_class %}{% endblock %}">
+    <noscript><p class="banner banner--error">This page needs JavaScript to talk to its local API.</p></noscript>
+    {% block main %}{% endblock %}
+  </main>
+
+  <footer class="sitefoot">
+    <p>
+      Backtests are simulations on historical data and do not promise future results. Trading can lose
+      money, and running it on more accounts multiplies losses as well as gains. This is not investment advice.
+    </p>
+    <a href="{{ contact_url }}" target="_blank" rel="noopener noreferrer">Reach me on Upwork &rarr;</a>
+  </footer>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>
