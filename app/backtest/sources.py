@@ -16,8 +16,9 @@ _HUGGING_FACE: dict[str, Any] = {
     "title": "Hugging Face dataset thetrademarkk/india-index-options-1m",
     "url": HUGGING_FACE_URL,
     "note": (
-        "Free community data: NIFTY 1-minute index and weekly option candles. "
-        "It is for educational use and has not been checked against NSE."
+        "Free community data (licence CC BY-NC 4.0: credit the authors, no commercial use): "
+        "NIFTY 1-minute index and weekly option candles. It is for educational use and has not "
+        "been checked against NSE."
     ),
 }
 

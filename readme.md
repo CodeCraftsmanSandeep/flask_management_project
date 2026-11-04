@@ -86,6 +86,7 @@ blank lines, `#` comments and quotes around values are fine). Only these two ent
 | `make smoke`     | Real login + one call per endpoint; prints field names and types, never values |
 | `make demo`      | Backtest app on **simulated** data (no Groww needed)                          |
 | `make backfill`  | Download NIFTY / option 1-minute history into Postgres (`ARGS="--months 12"`)  |
+| `make site`      | Build the static GitHub Pages website into `../AutomatedTradingSite`          |
 | `make hf-data`   | Download the free Hugging Face NIFTY dataset and convert it for `import-csv` (`ARGS="--months 12"`) |
 | `make import-csv` | Load 1-minute CSV files from any provider (`ARGS="--spot a.csv --options b.csv --expiries e.csv --dry-run"`) |
 | `make db-start` / `db-stop` | Start / stop the project-local Postgres (port 5433)                |
@@ -148,6 +149,8 @@ make run
 
 `make hf-data` prints these two import commands itself. Read the caveats before trusting a result:
 
+* **Licence: CC BY-NC 4.0.** You must credit the dataset's authors and may not use it commercially.
+  Check that this fits before you publish anything built on it (see the website section below).
 * **Unverified community data** ("educational use only, verify against exchange data" in the
   dataset's own words). It was never compared with NSE here. Treat results as a rehearsal, not proof.
 * **The window ends where the option data ends.** The index runs to July 2026, but the option files
@@ -312,6 +315,27 @@ Errors are `{"error": {"code": "...", "message": "..."}}` with stable codes: `cr
 * Secrets are scrubbed from error messages, never written to logs and never sent to the browser.
 * Read-only by design: no order-placement code exists.
 
+## Publish a static website (GitHub Pages)
+
+GitHub Pages only serves files, so it cannot run this Flask app. `make site` instead writes a
+read-only copy, with the landing page and the real backtest, into `../AutomatedTradingSite`:
+
+```bash
+make site                                  # or: make site ARGS="--out /some/folder"
+cd ../AutomatedTradingSite && python3 -m http.server 8000     # try it at http://localhost:8000
+```
+
+* The backtest filters run in the browser (`static/js/static-api.js`), on JSON files holding the
+  stored results and one chart file per trade (about 19 MB compressed, a few KB per page view).
+* **It is the same maths as the live app**: `tests/test_static_api.py` runs the same trades through
+  both under Node for hundreds of random filter combinations and requires identical JSON, down to
+  the paise (money is added as exact integers and rounded half-to-even like Python's `Decimal`).
+* The site has no accounts page, no keys and no way to place an order. The Upwork link is
+  `CONTACT_URL`.
+* **Before making it public, check the data licence.** The charts include the dataset's 1-minute
+  candles (CC BY-NC 4.0: non-commercial, credit required), and a site that advertises paid work is
+  commercial. Use data you are allowed to publish, or keep the site private.
+
 ## Project layout
 
 ```text
@@ -330,9 +354,11 @@ app/
   strategy/          pure engine: bars, EMA signals, option selection, fills, costs, metrics
   history/           Groww candle parsing, data-quality checks, Postgres store, backfill, jobs,
                      CSV import (csv_import.py)
-  backtest/          cached runs, filtering, presentation, routes for /backtest and /data
+  backtest/          cached runs, filtering, presentation, routes for /backtest and /data,
+                     export.py (results as JSON for the static website)
   db/                connection helper and plain-SQL migrations (app/db/migrations)
-scripts/             check_connection (make smoke), backfill, import_csv, hf_dataset, demo_data, mutation_check
+scripts/             check_connection (make smoke), backfill, import_csv, hf_dataset, demo_data, mutation_check,
+                     build_site (make site)
 tests/               pytest suite; tests/js holds the Node tests for the browser helpers
 tests/                        pytest suite built on in-memory fakes
 ```

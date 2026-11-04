@@ -13,7 +13,7 @@ PGPSQL := $(PGBIN)/psql -h 127.0.0.1 -p $(PGPORT) -U trading
 
 .DEFAULT_GOAL := help
 .PHONY: help venv install run dev smoke lint format typecheck test check clean \
-	db-init db-start db-stop db-status db-psql db-reset migrate backfill import-csv hf-data demo demo-data test-js
+	db-init db-start db-stop db-status db-psql db-reset migrate backfill import-csv hf-data demo demo-data test-js site
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "  %-10s %s\n", $$1, $$2}'
@@ -88,6 +88,9 @@ typecheck: ## mypy (strict)
 
 test: db-start ## pytest (needs the local Postgres; it is started for you)
 	$(BIN)/pytest
+
+site: db-start migrate ## Build the static website (GitHub Pages) into ../AutomatedTradingSite
+	$(BIN)/python -m scripts.build_site $(ARGS)
 
 test-js: ## Unit tests for the browser helpers (needs Node 22+)
 	node --test tests/js
