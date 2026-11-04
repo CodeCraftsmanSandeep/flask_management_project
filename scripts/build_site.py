@@ -42,8 +42,9 @@ ASSETS = [
     "vendor/lightweight-charts.LICENSE",
     "vendor/lightweight-charts.standalone.production.js",
 ]
-GENERATED = ["index.html", "backtest.html", "assets", "data", ".nojekyll", "README.md"]
-PAGE_LINKS = {"/": "index.html", "/backtest": "backtest.html"}
+GENERATED = ["index.html", "home.html", "backtest.html", "assets", "data", ".nojekyll", "README.md"]
+# The website opens on the backtest (index.html); the sales page is home.html.
+PAGE_LINKS = {"/": "home.html", "/backtest": "index.html"}
 
 README = """# Strategy Desk (website)
 
@@ -151,8 +152,8 @@ def build(out: Path, config: Config, say: Any = print) -> dict[str, int]:
     }
     app = create_app(config)
     pages: dict[str, tuple[str, dict[str, Any]]] = {
-        "index.html": ("site_index.html", {"facts": facts}),
-        "backtest.html": ("backtest.html", {"timeframes": TIMEFRAMES}),
+        "home.html": ("site_index.html", {"facts": facts}),
+        "index.html": ("backtest.html", {"timeframes": TIMEFRAMES}),
     }
     with app.test_request_context("/"):
         for filename, (template, context) in pages.items():

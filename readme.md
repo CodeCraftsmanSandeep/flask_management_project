@@ -327,6 +327,9 @@ To serve it from this repository instead, build into `docs/` (`make site ARGS="-
 it, and set **Settings → Pages → Branch `main`, folder `/docs`**. Without that folder, Pages shows
 this readme instead of the website.
 
+* **The website opens on the backtest** (`index.html`). A bar fixed to the bottom of that page asks
+  "Like what you see?", links to the sales page (`home.html`, also under **Home** in the menu) and has
+  the Upwork button. The sales page links back to the backtest.
 * The backtest filters run in the browser (`static/js/static-api.js`), on JSON files holding the
   stored results and one chart file per trade (about 19 MB compressed, a few KB per page view).
 * **It is the same maths as the live app**: `tests/test_static_api.py` runs the same trades through

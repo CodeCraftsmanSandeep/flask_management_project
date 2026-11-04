@@ -22,8 +22,11 @@
         </div>
       </div>
       <nav class="nav" aria-label="Pages">
-        {% set pages = [("/", "Home", "account"), ("/backtest", "Backtest", "backtest")] %}
-        {% if not static_site %}{% set pages = pages + [("/data", "Data", "data")] %}{% endif %}
+        {% if static_site %}
+        {% set pages = [("/backtest", "Backtest", "backtest"), ("/", "Home", "account")] %}
+        {% else %}
+        {% set pages = [("/", "Home", "account"), ("/backtest", "Backtest", "backtest"), ("/data", "Data", "data")] %}
+        {% endif %}
         {% for href, label, key in pages %}
         <a href="{{ href }}"{% if key == active %} aria-current="page"{% endif %}>{{ label }}</a>
         {% endfor %}
@@ -48,6 +51,17 @@
     </p>
     <a href="{{ contact_url }}" target="_blank" rel="noopener noreferrer">Reach me on Upwork &rarr;</a>
   </footer>
+
+  {% if static_site and active == "backtest" %}
+  <aside class="pitch" aria-label="Scale this strategy">
+    <p class="pitch__text">
+      <strong>Like what you see?</strong>
+      <span>Copy this strategy into 10 accounts, or run it on 100 VPS machines.</span>
+    </p>
+    <a class="pitch__more" href="/">See how it scales</a>
+    <a class="btn btn--hire" href="{{ contact_url }}" target="_blank" rel="noopener noreferrer">Work with me</a>
+  </aside>
+  {% endif %}
 
   {% block scripts %}{% endblock %}
 </body>
