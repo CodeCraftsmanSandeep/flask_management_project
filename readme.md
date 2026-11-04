@@ -1,7 +1,5 @@
 # Strategy Desk
 
-- resource: https://www.youtube.com/watch?v=mYIgtixNPBk
-
 A local Python + Flask app to **test a trading strategy on a year of real market data** and to keep
 your **broker accounts** in one place.
 
