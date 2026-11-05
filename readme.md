@@ -84,7 +84,7 @@ blank lines, `#` comments and quotes around values are fine). Only these two ent
 | `make smoke`     | Real login + one call per endpoint; prints field names and types, never values |
 | `make demo`      | Backtest app on **simulated** data (no Groww needed)                          |
 | `make backfill`  | Download NIFTY / option 1-minute history into Postgres (`ARGS="--months 12"`)  |
-| `make site`      | Build the static GitHub Pages website into `../AutomatedTradingSite`          |
+| `make site`      | Build the static GitHub Pages website into `docs/`                            |
 | `make hf-data`   | Download the free Hugging Face NIFTY dataset and convert it for `import-csv` (`ARGS="--months 12"`) |
 | `make import-csv` | Load 1-minute CSV files from any provider (`ARGS="--spot a.csv --options b.csv --expiries e.csv --dry-run"`) |
 | `make db-start` / `db-stop` | Start / stop the project-local Postgres (port 5433)                |
@@ -315,17 +315,16 @@ Errors are `{"error": {"code": "...", "message": "..."}}` with stable codes: `cr
 
 ## Publish a static website (GitHub Pages)
 
-GitHub Pages only serves files, so it cannot run this Flask app. `make site` instead writes a
-read-only copy, with the landing page and the real backtest, into `../AutomatedTradingSite`:
+GitHub Pages only serves files, so it cannot run this Flask app. `make site` writes a read-only
+copy, with the landing page and the real backtest, into `docs/` in this same repository:
 
 ```bash
-make site                                  # or: make site ARGS="--out /some/folder"
-cd ../AutomatedTradingSite && python3 -m http.server 8000     # try it at http://localhost:8000
+make site
+cd docs && python3 -m http.server 8000     # try it at http://localhost:8000
 ```
 
-To serve it from this repository instead, build into `docs/` (`make site ARGS="--out docs"`), commit
-it, and set **Settings → Pages → Branch `main`, folder `/docs`**. Without that folder, Pages shows
-this readme instead of the website.
+Commit `docs/`, push to `main`, and set **Settings → Pages → Branch `main`, folder `/docs`**.
+Without that folder setting, Pages shows this readme instead of the website.
 
 * **The website opens on the backtest** (`index.html`). A bar fixed to the bottom of that page asks
   "Like what you see?", links to the sales page (`home.html`, also under **Home** in the menu) and has

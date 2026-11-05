@@ -1,6 +1,6 @@
 """Build the static website (GitHub Pages) from the backtest stored in the local database.
 
-    python -m scripts.build_site [--out ../AutomatedTradingSite]
+    python -m scripts.build_site [--out docs]
 
 The output is plain files and needs no server: the landing page, a read-only backtest page that
 filters real trades in the browser (``app/static/js/static-api.js``), and the data it browses. It
@@ -65,11 +65,8 @@ files from `file://`.
 
 ## Publish it
 
-Push this folder to a public GitHub repository, then **Settings, Pages, Deploy from a branch,
-`main`, `/ (root)`**.
-
-This folder is generated: do not edit it by hand. Rebuild it from the main project with
-`make site`.
+This folder is the GitHub Pages site for AutomatedTradingProject. Set **Settings → Pages →
+branch `main`, folder `/docs`**. Rebuild it from the project root with `make site`.
 """
 
 
@@ -172,8 +169,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument(
         "--out",
         type=Path,
-        default=PROJECT_ROOT.parent / "AutomatedTradingSite",
-        help="folder to write the website into (default: ../AutomatedTradingSite)",
+        default=PROJECT_ROOT / "docs",
+        help="folder to write the website into (default: docs/)",
     )
     args = parser.parse_args(argv)
 

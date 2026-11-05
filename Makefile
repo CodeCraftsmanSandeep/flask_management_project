@@ -89,7 +89,7 @@ typecheck: ## mypy (strict)
 test: db-start ## pytest (needs the local Postgres; it is started for you)
 	$(BIN)/pytest
 
-site: db-start migrate ## Build the static website (GitHub Pages) into ../AutomatedTradingSite
+site: db-start migrate ## Build the static website (GitHub Pages) into docs/
 	$(BIN)/python -m scripts.build_site $(ARGS)
 
 test-js: ## Unit tests for the browser helpers (needs Node 22+)
